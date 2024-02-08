@@ -45,12 +45,12 @@ export const login = async (req: Request, res: Response) => {
       if (isPasswordValid) {
         const accessToken = await jwt.sign(
           { _id: user._id },
-          process.env.ACCESS_TOKEN_SECRET,
+          process.env.ACCESS_TOKEN_SECRET as string,
           { expiresIn: "1h" }
         );
         const refreshToken = await jwt.sign(
           { _id: user._id },
-          process.env.REFRESH_TOKEN_SECRET,
+          process.env.REFRESH_TOKEN_SECRET as string,
           { expiresIn: "2h" }
         );
         res.cookie("accessToken", accessToken, { maxAge: 60 * 60 * 1000 });
@@ -101,7 +101,7 @@ export const me = async (req: Request, res: Response) => {
   const accessToken = req.cookies.accessToken || "";
   const decodedToken: any = await jwt.verify(
     accessToken,
-    process.env.ACCESS_TOKEN_SECRET
+    process.env.ACCESS_TOKEN_SECRET!
   );
 
   const user = await User.findById(decodedToken.email);

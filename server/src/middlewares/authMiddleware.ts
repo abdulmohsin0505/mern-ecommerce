@@ -12,7 +12,7 @@ interface UserRequest extends Request {
   //     // Other user properties...
   //   };
   email?: string;
-  id: string;
+  id?: string;
   user?: any;
 }
 const authenticate = async (
@@ -29,12 +29,14 @@ const authenticate = async (
   } else {
     jwt.verify(
       accessToken,
-      process.env.ACCESS_TOKEN_SECRET,
-      async (err: any, decoded: { _id: string }) => {
+      process.env.ACCESS_TOKEN_SECRET!,
+      async (err: any, decoded: any) => {
         if (err) {
           return res.json({ valid: false, message: err });
         } else {
-          const user = await User.findById(decoded._id).select("-password");
+          const user: any = await User.findById(decoded._id).select(
+            "-password"
+          );
           req.user = { _id: user._id, username: user.username };
           next();
         }
@@ -52,14 +54,14 @@ const renewToken = (req: Request, res: Response) => {
   } else {
     jwt.verify(
       refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_SECRET!,
       (err: any, decoded: any) => {
         if (err) {
           return res.json({ valid: false, message: "Invalid refresh token" });
         } else {
           const accessToken = jwt.sign(
             { id: decoded.id },
-            process.env.ACCESS_TOKEN_SECRET,
+            process.env.ACCESS_TOKEN_SECRET!,
             { expiresIn: "1h" }
           );
           res.cookie("accessToken", accessToken, { maxAge: 60 * 60 * 1000 });

@@ -58,7 +58,7 @@ const listCategory = async (req: Request, res: Response) => {
   try {
     const all = await Category.find({});
     res.json(all);
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return res.status(400).json(error.message);
   }
@@ -68,7 +68,7 @@ const readCategory = async (req: Request, res: Response) => {
   try {
     const category = await Category.findOne({ _id: req.params.id });
     res.json(category);
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return res.status(400).json(error.message);
   }

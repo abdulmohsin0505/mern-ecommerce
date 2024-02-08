@@ -5,9 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 interface customeReqType extends Request {
   user: {
     _id: string;
-    email?: string;
-    isAdmin?: boolean;
-    username?: string;
+    username: string;
   };
 }
 
@@ -45,7 +43,7 @@ const addProduct = async (req: Request, res: Response) => {
     const product = new Product({ ...req.body });
     await product.save();
     res.json(product);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(400).json(error.message);
   }
@@ -70,7 +68,7 @@ const updateProductDetails = async (req: Request, res: Response) => {
       case !quantity:
         return res.json({ error: "Quantity is required" });
     }
-    const product = await Product.findById(req.params.id);
+    const product: any = await Product.findById(req.params.id);
     console.log("file", req.file);
     if (req.file !== undefined) {
       await cloudinary.uploader.destroy(product.image.public_id);
@@ -86,7 +84,7 @@ const updateProductDetails = async (req: Request, res: Response) => {
       req.body.image = product.image;
     }
 
-    const newProduct = await Product.findByIdAndUpdate(
+    const newProduct: any = await Product.findByIdAndUpdate(
       req.params.id,
       { ...req.body },
       { new: true }
@@ -95,7 +93,7 @@ const updateProductDetails = async (req: Request, res: Response) => {
     await newProduct.save();
 
     res.json(newProduct);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(400).json(error.message);
   }
@@ -105,7 +103,7 @@ const removeProduct = async (req: Request, res: Response) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     res.json(product);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
@@ -133,7 +131,7 @@ const fetchProducts = async (req: Request, res: Response) => {
       pages: Math.ceil(count / pageSize),
       hasMore: false,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });
   }
@@ -148,7 +146,7 @@ const fetchProductById = async (req: Request, res: Response) => {
       res.status(404);
       throw new Error("Product not found");
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(404).json({ error: "Product not found" });
   }
@@ -162,7 +160,7 @@ const fetchAllProducts = async (req: Request, res: Response) => {
       .sort({ createAt: -1 });
 
     res.json(products);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });
   }
@@ -184,7 +182,7 @@ const addProductReview = async (req: customeReqType, res: Response) => {
       }
 
       const review = {
-        name: req.user.username,
+        name: req.user?.username,
         rating: Number(rating),
         comment,
         user: req.user?._id,
@@ -204,7 +202,7 @@ const addProductReview = async (req: customeReqType, res: Response) => {
       res.status(404);
       throw new Error("Product not found");
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(400).json(error.message);
   }
@@ -214,7 +212,7 @@ const fetchTopProducts = async (req: Request, res: Response) => {
   try {
     const products = await Product.find({}).sort({ rating: -1 }).limit(4);
     res.json(products);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(400).json(error.message);
   }
@@ -224,7 +222,7 @@ const fetchNewProducts = async (req: Request, res: Response) => {
   try {
     const products = await Product.find().sort({ _id: -1 }).limit(5);
     res.json(products);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res.status(400).json(error.message);
   }
