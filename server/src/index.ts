@@ -13,7 +13,7 @@ import categoryRoutes from "./routes/categoryRouter";
 import productRoutes from "./routes/productRouter";
 
 dotenv.config();
-const port = process.env.PORT || 8080;
+// const port = process.env.PORT || 8080;
 const app = express();
 
 app.use(express.json());
@@ -43,4 +43,4 @@ app.use("/api/users", userRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/products", productRoutes);
 
-app.listen(port, () => console.log(`Server running on port: ${port}`));
+app.listen(8080, () => console.log(`Server running on port: 8080`));
