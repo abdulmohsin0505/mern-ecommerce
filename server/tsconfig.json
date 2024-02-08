@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "Node16",
     "moduleResolution": "NodeNext",
     "baseUrl": "src",
     "outDir": "dist",
