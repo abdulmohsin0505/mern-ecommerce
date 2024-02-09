@@ -4,9 +4,9 @@
   "description": "mern ecommerce",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "nodemon ",
+    "dev": "nodemon"
   },
   "author": "Abdul Mohsin",
   "license": "ISC",
