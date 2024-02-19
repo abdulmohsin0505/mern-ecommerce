@@ -27,7 +27,7 @@ const ProductCard = ({ p }: { p: Product }) => {
             className="cursor-pointer w-full "
             src={p.image.url}
             alt={p.name}
-            style={{ height: "170px", objectFit: "cover" }}
+            style={{ height: "170px", width: "100%" }}
             // width="170px"
             // height={"170px"}
           />
