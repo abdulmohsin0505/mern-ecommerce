@@ -3,7 +3,7 @@ import Product from "../models/productsSchema";
 import { v2 as cloudinary } from "cloudinary";
 
 interface customeReqType extends Request {
-  user: {
+  user?: {
     _id: string;
     username: string;
   };
