@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   useCreateReviewMutation,
@@ -79,10 +79,10 @@ const ProductDetails = () => {
               <img
                 src={product.image.url ? product.image.url : productImage}
                 alt={product.name}
-                className="w-full xl:w-[50rem] lg:w-[45rem] md:w-[30rem] sm:w-[20rem] mr-[2rem]"
+                className="w-full xl:w-[20rem] lg:w-[20rem] md:w-[15rem] sm:w-[10rem] mr-[2rem]"
               />
 
-              <HeartIcon />
+              <HeartIcon product={product} />
             </div>
 
             <div className="flex flex-col justify-between">
