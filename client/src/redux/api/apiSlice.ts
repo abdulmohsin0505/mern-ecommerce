@@ -1,7 +1,7 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8080/",
+  baseUrl: "https://mern-ecom-35nn.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
