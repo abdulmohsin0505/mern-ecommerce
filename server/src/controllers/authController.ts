@@ -45,12 +45,12 @@ export const login = async (req: Request, res: Response) => {
       if (isPasswordValid) {
         const accessToken = await jwt.sign(
           { _id: user._id },
-          process.env.ACCESS_TOKEN_SECRET as string,
+          process.env.ACCESS_TOKEN_SECRET!,
           { expiresIn: "1h" }
         );
         const refreshToken = await jwt.sign(
           { _id: user._id },
-          process.env.REFRESH_TOKEN_SECRET as string,
+          process.env.REFRESH_TOKEN_SECRET!,
           { expiresIn: "2h" }
         );
         res.cookie("accessToken", accessToken, { maxAge: 60 * 60 * 1000 });
