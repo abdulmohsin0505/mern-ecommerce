@@ -53,12 +53,13 @@ export const login = async (req: Request, res: Response) => {
           process.env.REFRESH_TOKEN_SECRET!,
           { expiresIn: "2h" }
         );
-        res.cookie("accessToken", accessToken, { maxAge: 60 * 60 * 1000 });
+        res.cookie("accessToken", accessToken, {
+          maxAge: 60 * 60 * 1000,
+          httpOnly: true,
+        });
         res.cookie("refreshToken", refreshToken, {
           maxAge: 2 * 60 * 60 * 1000,
           httpOnly: true,
-          secure: true,
-          sameSite: "strict",
         });
         res.status(200).json({
           message: "login successful",
